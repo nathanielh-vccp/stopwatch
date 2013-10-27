@@ -62,7 +62,7 @@ function setupStopwatch() {
     // If the timer is currently running, just reset the start time to now
     startTime = intervalID ? Date.now() : 0;
     stopTime = 0;
-    clock.textContent = "00:00";
+    clock.textContent = "00:00:000";
   });
 
   // Helper function that takes a UTC timestamp and returns a formatted time string
@@ -79,7 +79,12 @@ function setupStopwatch() {
       seconds = "0" + seconds;
     }
 
-    return minutes + ":" + seconds;
+    var millisecond = d.getMilliseconds();
+    if (millisecond < 10) {
+      millisecond = "0" + millisecond.replace("000","00");
+    }
+
+    return minutes + ":" + seconds + ":" + millisecond;
   }
 }
 
